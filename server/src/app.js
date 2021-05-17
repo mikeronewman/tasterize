@@ -5,6 +5,8 @@ const helmet = require('helmet');
 
 const app = express();
 
+const auth = require('./auth/auth.routes');
+
 app.use(morgan('tiny'));
 app.use(cors({
     origin: 'http://localhost:3000',
@@ -17,6 +19,11 @@ app.get('/', (req, res) => {
         message: 'Hello World!'
     });
 });
+
+app.use(
+    '/auth',
+    auth,
+);
 
 function notFound(req, res, next) {
     res.status(404);
