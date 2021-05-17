@@ -36,7 +36,19 @@ function unAuthorized(res, next) {
     next(error);
 }
 
+const validateUser = (req, res, next) => {
+    const result = schema.validate(req.body);
+    if (!result.error) {
+        next();
+    } else {
+        const error = result.error;
+        res.status(422);
+        next(error);
+    }
+};
+
 module.exports = {
     checkTokenSetUser,
     isLoggedIn,
+    validateUser,
 };
